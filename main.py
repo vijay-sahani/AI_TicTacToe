@@ -1,4 +1,4 @@
-# import math
+import math
 import random
 class player:
     def __init__(self,letter):
@@ -35,80 +35,52 @@ class HumanPlayer(player):
 
         return val
 
+class superComputer(player):
+    def __init__(self, letter):
+        super().__init__(letter) 
 
+    def get_move(self,game):
+        if len(game.available_moves())==9:
+            square=random.choice(game.available_moves())
+        else:
+            square=self.minMax(game,self.letter)["position"]
+        return square
 
+    def minMax(self,state,player):
+        max_player=self.letter #computer 
+        other_player="O" if player=="X" else "X"
 
+        # check the winner first
+        if state.current_winner==other_player:
+            return {"position":None,"score":1*(state.num_empty_square()+1) if other_player==max_player else -1*(state.num_empty_square()+1) }
 
+        elif not state.empty_square():
+            return {"position":None,"score":0}
 
+        if player==max_player:
+            best= {"position":None,"score":-math.inf}   #each score should increase maxima
+        else:
+            best= {"position":None,"score":math.inf} #each score should increase the minima of other player
 
+        for possible_move in state.available_moves():
+            state.make_move(possible_move,player)
+            sim_score=self.minMax(state,other_player)
 
+            # undo the move
+            state.board[possible_move]=" "
+            state.current_winner=None
 
+            sim_score["position"]=possible_move
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# import random
-
-
-# class player:
-#     def __init__(self,letter):
-#         self.letter=letter
-        
-# class computerMove(player):
-#     def __init__(self,letter):
-#         super().__init__(letter)
-#     def get_move(self,game):
-#         num=random.choice(game.available_moves())
-#         return num
-
-# class HumanMove(player):
-#     def __init__(self, letter):
-#         super().__init__(letter)
-
-#     def get_move(self,game):
-#         valid_move=False
-#         val=None
-#         while not valid_move:
-#             user_num=input(self.letter, "Enter number bw 0 to 8:")
-#             try:
-#                 val=int(user_num)
-#                 if user_num not in game.available_moves():
-#                     raise ValueError
-#                 valid_move=False
-#             except ValueError:
-#                 print("try again")
-
-#         return val
-
-                    
-
-
-
-
-
-        
-        
-
-
-
-
-
-
-
-
+            if player==max_player:
+                if sim_score["score"]>best["score"]:
+                    best=sim_score
+            else:
+                 if sim_score["score"]<best["score"]:
+          
+                    best=sim_score
+        # print(best)
+        return best
 
 
 

@@ -1,4 +1,4 @@
-from main import computer_move,HumanPlayer
+from main import computer_move,HumanPlayer,superComputer
 
 class tictactoe:
     def __init__(self):
@@ -23,10 +23,10 @@ class tictactoe:
     def available_moves(self):
         return [index for index,spot in enumerate(self.board) if spot==" "]
     
-    def empty_square(self):
+    def num_empty_square(self):
         return self.board.count(" ")
 
-    def non_empty_square(self):
+    def empty_square(self):
         return " " in self.board
 
     def make_move(self,square,letter):
@@ -64,7 +64,7 @@ def play(game,x_player,o_player,print_game=True):
     if print_game:
         game.print_board_num()
     letter="X"
-    while game.non_empty_square():
+    while game.empty_square():
         if letter=="O":
             square=o_player.get_move(game)
         else:
@@ -82,9 +82,21 @@ def play(game,x_player,o_player,print_game=True):
 
 if __name__ == "__main__":
     t=tictactoe()
-    x=computer_move("X")
-    o=HumanPlayer("O")
-    play(t,x,o,print_game=True)
+    x=superComputer("X")
+    o=computer_move("O")
+    pro=0
+    noob=0
+    tie=0
+    for _ in range(50):
+        result=play(t,x,o,print_game=False)
+        if result=="X":
+            pro+=1
+        elif result=="O":
+            noob+=1
+        else:
+            tie+=1
+
+    print(f"x is won round {pro} o won round {noob} rounds where {tie} tie")
 
 
 
