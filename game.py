@@ -44,8 +44,8 @@ class tictactoe:
             return True
             # checking the columns 
         col_ind=square%3
-        col=[self.board[col_ind*3:(col_ind+1)*3]]
-        if all([spot==letter for spot in col]):
+        col=self.board[col_ind*3:(col_ind+1)*3]
+        if all([spot== letter for spot in col]):
             return True
             # chechking the diagonals
         if square%2==0:
@@ -84,11 +84,11 @@ if __name__ == "__main__":
     pro=0
     noob=0
     tie=0
-    for _ in range(50):
+    for _ in range(5):
         t=tictactoe()
-        x=superComputer("X")
+        x=HumanPlayer("X")
         o=computer_move("O")
-        result=play(t,x,o,print_game=False)
+        result=play(t,x,o,print_game=True)
         if result=="X":
             pro+=1
         elif result=="O":
