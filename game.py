@@ -86,7 +86,7 @@ if __name__ == "__main__":
     tie=0
     for _ in range(5):
         t=tictactoe()
-        x=HumanPlayer("X")
+        x=superComputer("X")
         o=computer_move("O")
         result=play(t,x,o,print_game=True)
         if result=="X":
