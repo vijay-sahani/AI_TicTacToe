@@ -44,7 +44,7 @@ class tictactoe:
             return True
             # checking the columns 
         col_ind=square%3
-        col=self.board[col_ind*3:(col_ind+1)*3]
+        col=[self.board[col_ind+i*3 ]for i in range(3)]
         if all([spot== letter for spot in col]):
             return True
             # chechking the diagonals
@@ -74,7 +74,7 @@ def play(game,x_player,o_player,print_game=True):
                 print(letter ,"moved to square", square)
                 game.print_board()
             if game.current_winner:
-                print(letter, "winner")
+                # print(letter, "winner")
                 return letter
         letter="X" if letter=="O" else "O"
     if print_game:
@@ -84,11 +84,11 @@ if __name__ == "__main__":
     pro=0
     noob=0
     tie=0
-    for _ in range(5):
+    for _ in range(50):
         t=tictactoe()
         x=superComputer("X")
         o=computer_move("O")
-        result=play(t,x,o,print_game=True)
+        result=play(t,x,o,print_game=False)
         if result=="X":
             pro+=1
         elif result=="O":
@@ -96,7 +96,7 @@ if __name__ == "__main__":
         else:
             tie+=1
 
-    print(f"x is won round {pro} o won round {noob} rounds where {tie} tie")
+    print(f"x has won {pro} times o has won {noob} times rounds where {tie} tie")
 
 
 
