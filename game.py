@@ -81,13 +81,13 @@ def play(game,x_player,o_player,print_game=True):
         print("it's a tie")
 
 if __name__ == "__main__":
-    t=tictactoe()
-    x=superComputer("X")
-    o=computer_move("O")
     pro=0
     noob=0
     tie=0
     for _ in range(50):
+        t=tictactoe()
+        x=superComputer("X")
+        o=computer_move("O")
         result=play(t,x,o,print_game=False)
         if result=="X":
             pro+=1
