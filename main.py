@@ -79,7 +79,7 @@ class superComputer(player):
                  if sim_score["score"]<best["score"]:
           
                     best=sim_score
-        # print(best)
+       
         return best
 
 
